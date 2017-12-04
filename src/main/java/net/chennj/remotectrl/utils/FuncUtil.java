@@ -38,8 +38,32 @@ public class FuncUtil {
                 result += line;
             }
         } catch (IOException e) {
-
             System.out.println("转换异常："+e.getMessage());
+        } finally{
+        	if (null != bis){
+        		try {
+					bis.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
+        	if (null != isr){
+        		try {
+					isr.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
+        	if (null != br){
+        		try {
+					br.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
         }
 
         return result;

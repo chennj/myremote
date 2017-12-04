@@ -100,15 +100,18 @@ public final class Xml implements IProtocol{
 		String errmsg = null;
 		if ("".equals(recvMsg))return null;
 		
+		InputSource is = null;
+		StringReader sr = null;
+		CommandEntity entity = null;
         try {        	
         	recvMsg = recvMsg.replaceAll("[\u0000-\u001f]", "");
         	recvMsg = recvMsg.replaceAll("\n", "");
-            StringReader sr = new StringReader(recvMsg);
-            InputSource is = new InputSource(sr);
+            sr = new StringReader(recvMsg);
+            is = new InputSource(sr);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(is);
-            return processTrans(doc);
+            entity = (CommandEntity)processTrans(doc);
         } catch (SAXException e) {
             System.out.println("信息处理异常：" + e.getMessage());
             errmsg = e.getMessage();
@@ -121,19 +124,27 @@ public final class Xml implements IProtocol{
         } catch (NullPointerException e){
         	System.out.println("信息处理异常：" + e.getMessage());
             errmsg = "数据包格式错误";
+        } finally{
+        	if (null != sr){
+        		sr.close();
+        		sr = null;
+        	}
         }
         
-        CommandEntity entity = new CommandEntity();
-        entity.setAmount("0");
-		entity.setCompanyid("0");
-		entity.setContent(errmsg);
-		entity.setImei("0");
-		entity.setZhifubaono("0");
-		entity.setTimestamp("0");
-		entity.setTerminal("0");
-		entity.setType("9999");
-		entity.setCommandFrom(CommandFrom.COMMAND_FROM_LOCAL);
-		entity.setCommandType(CommandType.COMMAND_ERROR);
+        if (null == entity){
+        	
+        	entity = new CommandEntity();
+	        entity.setAmount("0");
+			entity.setCompanyid("0");
+			entity.setContent(errmsg);
+			entity.setImei("0");
+			entity.setZhifubaono("0");
+			entity.setTimestamp("0");
+			entity.setTerminal("0");
+			entity.setType("9999");
+			entity.setCommandFrom(CommandFrom.COMMAND_FROM_LOCAL);
+			entity.setCommandType(CommandType.COMMAND_ERROR);
+        }
         return entity;
 	}
 }
