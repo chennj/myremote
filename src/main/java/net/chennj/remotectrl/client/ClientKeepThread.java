@@ -14,7 +14,7 @@ public final class ClientKeepThread  extends Thread{
 	public ClientKeepThread(ClientActive clientActive) {
 
 		entity = new CommandEntity();
-		entity.setAmount("0");
+		entity.setAmount("false");
 		entity.setType(CommandType.COMMAND_KEEP_HEART.getName());
 		entity.setCompanyid("0");
 		entity.setContent("0");
@@ -30,7 +30,7 @@ public final class ClientKeepThread  extends Thread{
 			
 			if (selfClient.sizeOfQueue() == 0){
 				try {
-					TimeUnit.SECONDS.sleep(1);
+					TimeUnit.SECONDS.sleep(2);
 					System.out.println("发送心跳");
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block

@@ -3,6 +3,8 @@ package net.chennj.remotectrl.client;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -22,6 +24,12 @@ public final class ClientRecvThread extends Thread{
 		
 		this.is = is;
 		this.selfClient = clientActive;
+		try {
+			this.selfClient.getClient().setSoTimeout(30*1000);
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void run() {
@@ -65,6 +73,9 @@ public final class ClientRecvThread extends Thread{
 //			} catch (SocketException e) {
 //	            e.printStackTrace();
 //	            break;
+			} catch (SocketTimeoutException e){
+				e.printStackTrace();
+				break;
 	        } catch (EOFException e) {
 	        	e.printStackTrace();
 				break;
