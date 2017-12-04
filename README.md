@@ -166,5 +166,8 @@ public class SocketClient {
 # 服务器功能说明
 
 命令接收端（n)<------------->Remote Control Server<-------------------->命令控制端（m）
+
 由命令控制端发出命令，命令接收端响应命令并返回命令结果
-图示在issue中
+
+# 图示
+https://www.processon.com/view/link/5a24afc6e4b0f3a79865dbbe
