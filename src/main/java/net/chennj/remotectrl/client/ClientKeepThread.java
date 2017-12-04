@@ -14,12 +14,14 @@ public final class ClientKeepThread  extends Thread{
 	public ClientKeepThread(ClientActive clientActive) {
 
 		entity = new CommandEntity();
-		entity.setAmount("false");
+		entity.setAmount("0");
 		entity.setType(CommandType.COMMAND_KEEP_HEART.getName());
+		entity.setWeixinno("0");
 		entity.setCompanyid("0");
 		entity.setContent("0");
 		entity.setImei("0");
-		entity.setTerminal("0");
+		entity.setTerminal("9998");
+		entity.setTimestamp("0");
 		
 		this.selfClient = clientActive;
 	}

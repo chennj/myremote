@@ -33,7 +33,7 @@ public final class Xml implements IProtocol{
                 "<package><body>"+
                 "<type>"+trans.getType()+"</type>"+
                 "<content>"+trans.getContent()+"</content>"+
-                "<terminal>9998</terminal>"+
+                "<terminal>"+trans.getTerminal()+"</terminal>"+
                 "<companyid>"+trans.getCompanyid()+"</companyid>"+
                 "<weixinno>"+trans.getWeixinno()+"</weixinno>"+
                 "<imei>"+trans.getImei()+"</imei>"+

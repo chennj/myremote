@@ -167,6 +167,7 @@ public final class ClientActive {
 	
 	/******************************** 对发送队列的异步处理 ***********************************/
 	public synchronized void insertQueue(IEntity entity) {
+		//System.out.println("接收命令："+entity.get_id());
 		sendQueue.add(entity);
 	}
 
