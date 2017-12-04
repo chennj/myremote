@@ -35,7 +35,7 @@ public final class Xml implements IProtocol{
                 "<content>"+trans.getContent()+"</content>"+
                 "<terminal>"+trans.getTerminal()+"</terminal>"+
                 "<companyid>"+trans.getCompanyid()+"</companyid>"+
-                "<weixinno>"+trans.getZhifubaono()+"</weixinno>"+
+                "<zhifubaono>"+trans.getZhifubaono()+"</zhifubaono>"+
                 "<imei>"+trans.getImei()+"</imei>"+
                 "<amount>"+trans.getAmount()+"</amount>"+
                 "<paytimestamp>"+trans.getTimestamp()+"</paytimestamp>"+
@@ -63,7 +63,7 @@ public final class Xml implements IProtocol{
 	private IEntity processTrans(Document doc) {
 		
         String type = doc.getElementsByTagName("type").item(0).getFirstChild().getNodeValue();
-		String weixinno = doc.getElementsByTagName("weixinno").item(0).getFirstChild().getNodeValue();
+		String zhifubaono = doc.getElementsByTagName("zhifubaono").item(0).getFirstChild().getNodeValue();
 		String companyid = doc.getElementsByTagName("companyid").item(0).getFirstChild().getNodeValue();
 		String terminal = doc.getElementsByTagName("terminal").item(0).getFirstChild().getNodeValue();
 		String imei = doc.getElementsByTagName("imei").item(0).getFirstChild().getNodeValue();
@@ -80,7 +80,7 @@ public final class Xml implements IProtocol{
 		entity.setCompanyid(companyid);
 		entity.setContent(content);
 		entity.setImei(imei);
-		entity.setZhifubaono(weixinno);
+		entity.setZhifubaono(zhifubaono);
 		entity.setTimestamp(paytimestamp);
 		entity.setTerminal(terminal);
 		entity.setType(type);

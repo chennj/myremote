@@ -64,7 +64,7 @@ public class SocketClient {
                 "<type>1000</type>"+
                 "<content>test</content>"+
                 "<companyid>10148</companyid>"+
-                "<weixinno>abcdef</weixinno>"+
+                "<zhifubaono>abcdef</zhifubaono>"+
                 "<amount>13.1</amount>"+
                 "<terminal>9997</terminal>"+
                 "<paytimestamp>0</paytimestamp>"+
@@ -92,7 +92,7 @@ public class SocketClient {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(is);
             String type = doc.getElementsByTagName("type").item(0).getFirstChild().getNodeValue();
-    		String weixinno = doc.getElementsByTagName("weixinno").item(0).getFirstChild().getNodeValue();
+    		String zhifubaono = doc.getElementsByTagName("zhifubaono").item(0).getFirstChild().getNodeValue();
     		String companyid = doc.getElementsByTagName("companyid").item(0).getFirstChild().getNodeValue();
     		String terminal = doc.getElementsByTagName("terminal").item(0).getFirstChild().getNodeValue();
     		String imei = doc.getElementsByTagName("imei").item(0).getFirstChild().getNodeValue();
