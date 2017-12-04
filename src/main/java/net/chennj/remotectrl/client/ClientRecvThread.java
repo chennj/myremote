@@ -25,7 +25,7 @@ public final class ClientRecvThread extends Thread{
 		this.is = is;
 		this.selfClient = clientActive;
 		try {
-			this.selfClient.getClient().setSoTimeout(30*1000);
+			this.selfClient.getClient().setSoTimeout(60*1000);
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

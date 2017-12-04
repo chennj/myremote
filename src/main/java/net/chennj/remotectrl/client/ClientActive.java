@@ -45,6 +45,7 @@ public final class ClientActive {
 		sendTh = new ClientSendThread(os,this);
 		keepTh = new ClientKeepThread(this);
 		
+		//长连接服务器，不需要线程池
 		//ThreadPool.getThreadPool().execute(recvTh);
 		//ThreadPool.getThreadPool().execute(sendTh);
 		//ThreadPool.getThreadPool().execute(keepTh);
