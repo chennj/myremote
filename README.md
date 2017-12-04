@@ -144,7 +144,7 @@ public class SocketClient {
 	                String xmlinfo = getStringFromSocketBytes(info);
 	                System.out.println("接收到的数据："+xmlinfo);
 	                String result = parse_xml(xmlinfo);
-	                if (result.startsWith("0002")){
+	                if (result.startsWith("1002")){
 	                	//忽略心跳
 	                	continue;
 	                }else{
