@@ -45,13 +45,13 @@ public final class ClientActive {
 		sendTh = new ClientSendThread(os,this);
 		keepTh = new ClientKeepThread(this);
 		
-		ThreadPool.getThreadPool().execute(recvTh);
-		ThreadPool.getThreadPool().execute(sendTh);
-		ThreadPool.getThreadPool().execute(keepTh);
+		//ThreadPool.getThreadPool().execute(recvTh);
+		//ThreadPool.getThreadPool().execute(sendTh);
+		//ThreadPool.getThreadPool().execute(keepTh);
 		
-		//recvTh.start();
-		//sendTh.start();
-		//keepTh.start();
+		recvTh.start();
+		sendTh.start();
+		keepTh.start();
 	}
 
 	public Socket getClient(){

@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import net.chennj.remotectrl.bean.CommandEntity;
 import net.chennj.remotectrl.factory.ProtocolFactory;
+import net.chennj.remotectrl.utils.FuncUtil;
 
 public final class ClientSendThread  extends Thread{
 
@@ -27,15 +28,17 @@ public final class ClientSendThread  extends Thread{
 			if (selfClient.sizeOfQueue() == 0)
 				try {
 					// 若没有数据则阻塞
-					TimeUnit.MILLISECONDS.sleep(200);
+					TimeUnit.MILLISECONDS.sleep(9);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			else {
 				CommandEntity entity = (CommandEntity) selfClient.removeQueueEle(0);
 				try {
-					os.write(ProtocolFactory.build(ProtocolFactory.XML).unwrap(entity));
+					byte[] sndbytes = ProtocolFactory.build(ProtocolFactory.XML).unwrap(entity);
+					os.write(sndbytes);
 					os.flush();
+					//System.out.println("发送的数据:"+FuncUtil.getStringFromSocketBytes(sndbytes));
 					//selfClient.notify();
 				} catch (SocketException e) {
 					e.printStackTrace();

@@ -127,7 +127,7 @@ public final class ClientRecvThread extends Thread{
 				}
 			}
 			break;
-			
+						
 			default:{
 				entity.setContent("type错误");
 				selfClient.insertQueue(entity);
@@ -149,6 +149,30 @@ public final class ClientRecvThread extends Thread{
 			
 			case COMMAND_TARGET_ERWMA:{
 				
+				ClientActive target = selfClient.selectClientActive(entity.get_id(),from);
+				if (null != target){
+					selfClient.join_session(from, entity);
+					target.insertQueue(entity);
+				}else{
+					entity.setContent("未能找到目标机器");
+					selfClient.insertQueue(entity);
+				}
+			}
+			break;
+			
+			case COMMAND_PAY_SUCCESS:{				
+				ClientActive target = selfClient.selectClientActive(entity.get_id(),from);
+				if (null != target){
+					selfClient.join_session(from, entity);
+					target.insertQueue(entity);
+				}else{
+					entity.setContent("未能找到目标机器");
+					selfClient.insertQueue(entity);
+				}
+			}
+			break;
+			
+			case COMMAND_PAY_FAILED:{				
 				ClientActive target = selfClient.selectClientActive(entity.get_id(),from);
 				if (null != target){
 					selfClient.join_session(from, entity);

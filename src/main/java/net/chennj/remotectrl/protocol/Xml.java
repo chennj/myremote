@@ -41,7 +41,7 @@ public final class Xml implements IProtocol{
                 "<paytimestamp>"+trans.getTimestamp()+"</paytimestamp>"+
                 "</body></package>";
 
-        System.out.println("发送的信息:"+xmlmsg);
+        //System.out.println("发送的信息:"+xmlmsg);
 
         //将int类型转为网络大字节序的4个byte
         int xmlmsg_l=0;
