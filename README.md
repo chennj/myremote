@@ -3,7 +3,7 @@ Remote Control Server
 
 远程控制服务器
 
-客户端代码示例
+命令控制端代码示例
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
