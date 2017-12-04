@@ -18,7 +18,7 @@ public class CommandEntity implements IEntity{
 	private String type;
 	private String content;
 	private String companyid;
-	private String weixinno;
+	private String zhifubaono;
 	private String imei;
 	private String amount;
 	private String timestamp;
@@ -64,12 +64,12 @@ public class CommandEntity implements IEntity{
 		this.companyid = companyid;
 	}
 
-	public String getWeixinno() {
-		return weixinno;
+	public String getZhifubaono() {
+		return zhifubaono;
 	}
 
-	public void setWeixinno(String weixinno) {
-		this.weixinno = weixinno;
+	public void setZhifubaono(String zhifubaono) {
+		this.zhifubaono = zhifubaono;
 	}
 
 	public String getImei() {

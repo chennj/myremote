@@ -43,7 +43,7 @@ public final class ClientKeepThread  extends Thread{
 		CommandEntity entity = new CommandEntity();
 		entity.setAmount("0");
 		entity.setType(CommandType.COMMAND_KEEP_HEART.getName());
-		entity.setWeixinno("0");
+		entity.setZhifubaono("0");
 		entity.setCompanyid("0");
 		entity.setContent("0");
 		entity.setImei("0");

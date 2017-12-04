@@ -35,7 +35,7 @@ public final class Xml implements IProtocol{
                 "<content>"+trans.getContent()+"</content>"+
                 "<terminal>"+trans.getTerminal()+"</terminal>"+
                 "<companyid>"+trans.getCompanyid()+"</companyid>"+
-                "<weixinno>"+trans.getWeixinno()+"</weixinno>"+
+                "<weixinno>"+trans.getZhifubaono()+"</weixinno>"+
                 "<imei>"+trans.getImei()+"</imei>"+
                 "<amount>"+trans.getAmount()+"</amount>"+
                 "<paytimestamp>"+trans.getTimestamp()+"</paytimestamp>"+
@@ -80,7 +80,7 @@ public final class Xml implements IProtocol{
 		entity.setCompanyid(companyid);
 		entity.setContent(content);
 		entity.setImei(imei);
-		entity.setWeixinno(weixinno);
+		entity.setZhifubaono(weixinno);
 		entity.setTimestamp(paytimestamp);
 		entity.setTerminal(terminal);
 		entity.setType(type);
@@ -128,7 +128,7 @@ public final class Xml implements IProtocol{
 		entity.setCompanyid("0");
 		entity.setContent(errmsg);
 		entity.setImei("0");
-		entity.setWeixinno("0");
+		entity.setZhifubaono("0");
 		entity.setTimestamp("0");
 		entity.setTerminal("0");
 		entity.setType("9999");
