@@ -61,8 +61,8 @@ public class SocketClient {
 
         String xmlmsg = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"+
                 "<package><body>"+
-                "<type>0000</type>"+
-                "<content>11.3</content>"+
+                "<type>1000</type>"+
+                "<content>test</content>"+
                 "<companyid>10148</companyid>"+
                 "<weixinno>abcdef</weixinno>"+
                 "<amount>13.1</amount>"+
