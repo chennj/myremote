@@ -170,4 +170,4 @@ public class SocketClient {
 由命令控制端发出命令，命令接收端响应命令并返回命令结果
 
 # 图示
-<img src="https://www.processon.com/view/link/5a24afc6e4b0f3a79865dbbe"/>
+图示链接(https://www.processon.com/view/link/5a24afc6e4b0f3a79865dbbe)
