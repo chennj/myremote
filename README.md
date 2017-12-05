@@ -27,9 +27,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class SocketClient {
-
-	private static OutputStream os;
-	private static InputStream is;
 	
     public static byte[] bytesMerger(byte[] byte_1, byte[] byte_2) {
         byte[] byte_3 = new byte[byte_1.length + byte_2.length];
@@ -53,6 +50,31 @@ public class SocketClient {
         } catch (IOException e) {
 
             System.out.println("转换异常："+e.getMessage());
+        } finally{
+        	if (null != bis){
+        		try {
+					bis.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
+        	if (null != isr){
+        		try {
+					isr.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
+        	if (null != br){
+        		try {
+					br.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
         }
 
         return result;
@@ -62,10 +84,10 @@ public class SocketClient {
         String xmlmsg = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"+
                 "<package><body>"+
                 "<type>1000</type>"+
-                "<content>test</content>"+
+                "<content>0</content>"+
                 "<companyid>10148</companyid>"+
                 "<zhifubaono>abcdef</zhifubaono>"+
-                "<amount>13.1</amount>"+
+                "<amount>0.2</amount>"+
                 "<terminal>9997</terminal>"+
                 "<paytimestamp>0</paytimestamp>"+
                 "<imei>0</imei>"+
@@ -118,32 +140,42 @@ public class SocketClient {
     }
     public static void main(String[] args) throws UnknownHostException, IOException{
     	
-    	Socket client = new Socket("localhost", 9999);  
-    	os = client.getOutputStream();
-    	is = client.getInputStream();
+    	//初始化
+    	Socket client 	= new Socket("localhost", 9999);  
+    	OutputStream os	= client.getOutputStream();
+    	InputStream is 	= client.getInputStream();
     	
+    	//发出命令
     	byte[] sndbytes = assembleSendXml();
     	os.write(sndbytes);
     	os.flush();
     	   	   	
+    	//设置读超时
+    	client.setSoTimeout(15*1000);
+    	
+    	//循环读取结果
+    	//先读取4字节的包头以确定读取长度
+    	//然后根据长度读取剩下的数据，这种方法
+    	//可一定程度上防止粘包现象
     	while(true){
-	    	byte[] head = new byte[4];
-	    	
-	        int number = is.read(head);
+    		
+	    	byte[] head = new byte[4];	    	
+	        int number 	= is.read(head);
 	        
 	        if (-1 < number){
 	           
-	            ByteBuffer bb = ByteBuffer.wrap(head);
-	            int recvSize = bb.order(ByteOrder.BIG_ENDIAN).getInt();
-	            byte[] info = new byte[recvSize];
-	            number = is.read(info);
+	            ByteBuffer bb 	= ByteBuffer.wrap(head);
+	            int recvSize 	= bb.order(ByteOrder.BIG_ENDIAN).getInt();
+	            byte[] info 	= new byte[recvSize];
+	            number 			= is.read(info);
 	
 	            System.out.println("接收到的数据大小："+recvSize);
 	
 	            if (-1 < number){
-	                String xmlinfo = getStringFromSocketBytes(info);
+	                String xmlinfo 	= getStringFromSocketBytes(info);
 	                System.out.println("接收到的数据："+xmlinfo);
-	                String result = parse_xml(xmlinfo);
+	                String result 	= parse_xml(xmlinfo);
+	                //if (result.startsWith("1002") || result.startsWith("1001")){
 	                if (result.startsWith("1002")){
 	                	//忽略心跳
 	                	continue;
