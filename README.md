@@ -83,11 +83,12 @@ public class SocketClient {
 
         String xmlmsg = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"+
                 "<package><body>"+
-                "<type>1000</type>"+
+                "<type>0000</type>"+
                 "<content>0</content>"+
-                "<companyid>10148</companyid>"+
-                "<zhifubaono>abcdef</zhifubaono>"+
-                "<amount>0.2</amount>"+
+                "<companyid>10435</companyid>"+
+                "<weixinno>abcdef</weixinno>"+
+                "<terminaltype>2</terminaltype>"+
+                "<amount>0.1</amount>"+
                 "<terminal>9997</terminal>"+
                 "<paytimestamp>0</paytimestamp>"+
                 "<imei>0</imei>"+
@@ -114,7 +115,7 @@ public class SocketClient {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(is);
             String type = doc.getElementsByTagName("type").item(0).getFirstChild().getNodeValue();
-    		String zhifubaono = doc.getElementsByTagName("zhifubaono").item(0).getFirstChild().getNodeValue();
+    		String zhifubaono = doc.getElementsByTagName("weixinno").item(0).getFirstChild().getNodeValue();
     		String companyid = doc.getElementsByTagName("companyid").item(0).getFirstChild().getNodeValue();
     		String terminal = doc.getElementsByTagName("terminal").item(0).getFirstChild().getNodeValue();
     		String imei = doc.getElementsByTagName("imei").item(0).getFirstChild().getNodeValue();

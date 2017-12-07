@@ -6,10 +6,11 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.LinkedList;
 
+import net.chennj.remotectrl.bean.CommandEntity;
 import net.chennj.remotectrl.bean.CommandFrom;
+import net.chennj.remotectrl.bean.CommandType;
 import net.chennj.remotectrl.bean.IEntity;
 import net.chennj.remotectrl.common.OnSession;
-import net.chennj.remotectrl.server.ThreadPool;
 
 public final class ClientActive {
 
@@ -17,6 +18,7 @@ public final class ClientActive {
 	
 	private String selfKey;
 	private CommandFrom selfFrom;
+	private CommandType selfType;
 	private boolean isStop;
 	
 	//private TcpServer server;
@@ -30,6 +32,10 @@ public final class ClientActive {
 	private ClientKeepThread keepTh;
 	
 	public ClientActive(/*TcpServer server, */Socket client) throws IOException{
+		
+		selfKey = null;
+		selfFrom = null;
+		selfType = null;
 		
 		isStop = false;
 		
@@ -87,10 +93,10 @@ public final class ClientActive {
 		
 		if (isStop)return;
 		try {
-			client.close();
 			recvTh.close();
 			sendTh.close();
 			keepTh.close();
+			client.close();
 			isStop = true;
 			notify();
 			System.out.println("下线了...");
@@ -98,22 +104,36 @@ public final class ClientActive {
 			System.out.println("关闭失败.....");
 			e.printStackTrace();
 		} finally{
-			removeFromMap(selfKey,selfFrom);
+			removeFromMap(selfKey,selfFrom,selfType);
 		}
 	}
 	
-	private void removeFromMap(String mykey2, CommandFrom from2) {
+	private void removeFromMap(String mykey2, CommandFrom from2, CommandType type2) {
 		
-		if (null != from2 && null != mykey2){
+		if (null != from2 && null != mykey2 && null != type2){
+			
+			//被控制端只用心跳注册，所以也只用心跳类型注销
+			if (
+					CommandFrom.COMMAND_FROM_TARGET == from2
+					&& CommandType.COMMAND_KEEP_HEART != type2){
+				return;
+			}
 			
 			switch(selfFrom){
 			
 			case COMMAND_FROM_CONTROL:{
+				this.selfFrom = null;
+				this.selfType = null;
+				this.selfKey = null;
 				OnSession.get_instance().removeClientControlTerminal(mykey2);
 			}
 			break;
 			case COMMAND_FROM_TARGET:{
+				this.selfFrom = null;
+				this.selfType = null;
+				this.selfKey = null;
 				OnSession.get_instance().removeClientTargetTerminal(mykey2);
+
 			}
 			break;
 			default:
@@ -123,12 +143,36 @@ public final class ClientActive {
 		}
 	}
 
-	public void join_session(CommandFrom from, IEntity entity){
+	public void join_session(IEntity entity){
 		
-		this.selfKey = entity.get_id();
-		this.selfFrom = from;
+		//已经注册
+		if (null != selfKey)return;
 		
-		switch(from){
+		CommandEntity commandEntity = (CommandEntity)entity;
+		
+		this.selfKey 	= commandEntity.get_id();
+		this.selfFrom 	= commandEntity.getCommandFrom();
+		this.selfType 	= commandEntity.getCommandType();
+		
+		//检查信息完整性
+		if ("none".equals(this.selfKey) || "".equals(this.selfKey)
+				|| null == this.selfFrom
+				|| null == this.selfType){
+			this.selfKey 	= null;
+			this.selfFrom 	= null;
+			this.selfType 	= null;
+			return;
+		}
+		//如果连接来自被控制端,只用心跳注册
+		else if (CommandFrom.COMMAND_FROM_TARGET == this.selfFrom
+				&& CommandType.COMMAND_KEEP_HEART != this.selfType){
+			this.selfKey 	= null;
+			this.selfFrom 	= null;
+			this.selfType 	= null;
+			return;
+		}
+		
+		switch(this.selfFrom){
 		
 		case COMMAND_FROM_CONTROL:{
 			if (!OnSession.get_instance().isContainKeyOfControlTerminal(entity.get_id())){

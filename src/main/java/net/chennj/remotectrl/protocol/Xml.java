@@ -35,7 +35,7 @@ public final class Xml implements IProtocol{
                 "<content>"+trans.getContent()+"</content>"+
                 "<terminal>"+trans.getTerminal()+"</terminal>"+
                 "<companyid>"+trans.getCompanyid()+"</companyid>"+
-                "<zhifubaono>"+trans.getZhifubaono()+"</zhifubaono>"+
+                "<weixinno>"+trans.getZhifubaono()+"</weixinno>"+
                 "<imei>"+trans.getImei()+"</imei>"+
                 "<amount>"+trans.getAmount()+"</amount>"+
                 "<paytimestamp>"+trans.getTimestamp()+"</paytimestamp>"+
@@ -63,9 +63,9 @@ public final class Xml implements IProtocol{
 	private IEntity processTrans(Document doc) {
 		
         String type = doc.getElementsByTagName("type").item(0).getFirstChild().getNodeValue();
-		String zhifubaono = doc.getElementsByTagName("zhifubaono").item(0).getFirstChild().getNodeValue();
 		String companyid = doc.getElementsByTagName("companyid").item(0).getFirstChild().getNodeValue();
 		String terminal = doc.getElementsByTagName("terminal").item(0).getFirstChild().getNodeValue();
+		String zhifubaono = doc.getElementsByTagName("weixinno").item(0).getFirstChild().getNodeValue();
 		String imei = doc.getElementsByTagName("imei").item(0).getFirstChild().getNodeValue();
 		String content = doc.getElementsByTagName("content").item(0).getFirstChild().getNodeValue();
 		String amount = doc.getElementsByTagName("amount").item(0).getFirstChild().getNodeValue();

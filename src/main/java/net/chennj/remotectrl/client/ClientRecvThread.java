@@ -112,14 +112,14 @@ public final class ClientRecvThread extends Thread{
 			switch(entity.getCommandType()){
 			
 			case COMMAND_KEEP_HEART:{
-				selfClient.join_session(from, entity);
+				selfClient.join_session(entity);
 			}
 			break;
 			
 			case COMMAND_CONTROL_ERWMA:{
 				ClientActive target = selfClient.selectClientActive(entity.get_id(),from);
 				if (null != target){
-					selfClient.join_session(from, entity);
+					selfClient.join_session(entity);
 					target.insertQueue(entity);
 				}else{
 					entity.setContent("未能找到目标机器");
@@ -143,7 +143,7 @@ public final class ClientRecvThread extends Thread{
 			switch(entity.getCommandType()){
 			
 			case COMMAND_KEEP_HEART:{
-				selfClient.join_session(from, entity);
+				selfClient.join_session(entity);
 			}
 			break;
 			
@@ -151,7 +151,7 @@ public final class ClientRecvThread extends Thread{
 				
 				ClientActive target = selfClient.selectClientActive(entity.get_id(),from);
 				if (null != target){
-					selfClient.join_session(from, entity);
+					//selfClient.join_session(entity);
 					target.insertQueue(entity);
 				}else{
 					entity.setContent("未能找到目标机器");
@@ -163,7 +163,7 @@ public final class ClientRecvThread extends Thread{
 			case COMMAND_PAY_SUCCESS:{				
 				ClientActive target = selfClient.selectClientActive(entity.get_id(),from);
 				if (null != target){
-					selfClient.join_session(from, entity);
+					//selfClient.join_session(entity);
 					target.insertQueue(entity);
 				}else{
 					entity.setContent("未能找到目标机器");
@@ -175,7 +175,7 @@ public final class ClientRecvThread extends Thread{
 			case COMMAND_PAY_FAILED:{				
 				ClientActive target = selfClient.selectClientActive(entity.get_id(),from);
 				if (null != target){
-					selfClient.join_session(from, entity);
+					//selfClient.join_session(entity);
 					target.insertQueue(entity);
 				}else{
 					entity.setContent("未能找到目标机器");
