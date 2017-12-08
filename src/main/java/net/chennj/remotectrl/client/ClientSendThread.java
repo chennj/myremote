@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 import net.chennj.remotectrl.bean.CommandEntity;
 import net.chennj.remotectrl.factory.ProtocolFactory;
-import net.chennj.remotectrl.utils.FuncUtil;
 
 public final class ClientSendThread  extends Thread{
 

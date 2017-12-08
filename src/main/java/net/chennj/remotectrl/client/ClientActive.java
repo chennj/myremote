@@ -98,7 +98,6 @@ public final class ClientActive {
 			keepTh.close();
 			client.close();
 			isStop = true;
-			notify();
 			System.out.println("下线了...");
 		} catch (IOException e) {
 			System.out.println("关闭失败.....");
