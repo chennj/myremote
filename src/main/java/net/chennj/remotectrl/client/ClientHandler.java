@@ -78,7 +78,7 @@ public final class ClientHandler implements MessageHandler{
 		CommandType type = entity.getCommandType();
 		
 		if (null == from || null == type){
-			entity.setContent("terminal或type错误");
+			entity.setContent("terminal or type error");
 			return sendSelfData(selfChannel, entity);
 		}
 		
@@ -102,7 +102,7 @@ public final class ClientHandler implements MessageHandler{
 					join_session(selfChannel,entity);
 					return sendTargetData(target,entity);
 				}else{
-					entity.setContent("Cann't find target machine");
+					entity.setContent("Failed to find the target machine");
 					return sendSelfData(selfChannel,entity);
 				}
 			}
@@ -132,7 +132,7 @@ public final class ClientHandler implements MessageHandler{
 				if (null != target){
 					return sendTargetData(target,entity);
 				}else{
-					entity.setContent("未能找到目标机器");
+					entity.setContent("failed to find the target machine");
 					return sendSelfData(selfChannel,entity);
 				}
 			}
@@ -142,7 +142,7 @@ public final class ClientHandler implements MessageHandler{
 				if (null != target){
 					return sendTargetData(target,entity);
 				}else{
-					entity.setContent("未能找到目标机器");
+					entity.setContent("Failed to find the target machine");
 					return sendSelfData(selfChannel,entity);
 				}
 			}
@@ -152,13 +152,13 @@ public final class ClientHandler implements MessageHandler{
 				if (null != target){
 					return sendTargetData(target,entity);
 				}else{
-					entity.setContent("未能找到目标机器");
+					entity.setContent("Failed to find the target machine");
 					return sendSelfData(selfChannel,entity);
 				}
 			}
 			
 			default:{
-				entity.setContent("type错误");
+				entity.setContent("type error");
 				return sendSelfData(selfChannel,entity);
 			}
 			}

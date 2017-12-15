@@ -123,7 +123,7 @@ public final class Xml implements IProtocol{
         	errmsg = e.getMessage();
         } catch (NullPointerException e){
         	System.out.println("信息处理异常：" + e.getMessage());
-            errmsg = "数据包格式错误";
+            errmsg = "bad packet format";
         } finally{
         	if (null != sr){
         		sr.close();
