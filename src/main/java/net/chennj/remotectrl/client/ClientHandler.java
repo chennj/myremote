@@ -183,7 +183,9 @@ public final class ClientHandler implements MessageHandler{
 		
 		ByteBuffer buf = ByteBuffer.wrap(sndbytes);
 		try {
-			channel.write(buf);
+			synchronized(channel){
+				channel.write(buf);
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
